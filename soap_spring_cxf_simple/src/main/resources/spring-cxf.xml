@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:simple="http://cxf.apache.org/simple"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://cxf.apache.org/simple
+       http://cxf.apache.org/schemas/simple.xsd">
+
+    <simple:server id="helloService"
+                   serviceClass="demo.cxf.soap_spring_cxf_simple.HelloService"
+                   address="/HelloService">
+        <simple:serviceBean>
+            <bean class="demo.cxf.soap_spring_cxf_simple.HelloServiceImpl"/>
+        </simple:serviceBean>
+    </simple:server>
+
+</beans>

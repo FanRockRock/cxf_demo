@@ -7,27 +7,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>demo.cxf</groupId>
-    <artifactId>soap_spring_cxf</artifactId>
+    <artifactId>soap_cxf_interceptor</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <properties>
         <cxf.version>3.0.0</cxf.version>
-        <spring.version>4.0.5.RELEASE</spring.version>
     </properties>
 
     <dependencies>
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -37,6 +24,11 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
             <version>${cxf.version}</version>
         </dependency>
     </dependencies>
