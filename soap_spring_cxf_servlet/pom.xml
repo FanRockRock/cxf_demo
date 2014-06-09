@@ -40,4 +40,5 @@
             <version>${cxf.version}</version>
         </dependency>
     </dependencies>
+
 </project>
