@@ -10,7 +10,7 @@
 
 参见 `soap_cxf` 项目
 
-### 2.2 基于 Simple Frontend
+### 2.2 基于 Simple Frontend 实现
 
 参见 `soap_cxf_simple` 项目
 
