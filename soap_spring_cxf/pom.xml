@@ -12,6 +12,7 @@
     <packaging>war</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>3.0.0</cxf.version>
         <spring.version>4.0.5.RELEASE</spring.version>
     </properties>
