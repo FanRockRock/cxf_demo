@@ -44,6 +44,10 @@
 
 参见 `soap_spring_cxf_annotation` 项目
 
-### 4.5 配置 CXF 总线
+### 4.6 配置 CXF 总线
 
 参见 `soap_spring_cxf_bus` 项目
+
+## 5 使用 CXF 开发 REST WS
+
+参见 `rest_cxf` 项目
