@@ -12,11 +12,19 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>4.11</junit.version>
         <cxf.version>3.0.0</cxf.version>
         <jackson.version>1.9.13</jackson.version>
     </properties>
 
     <dependencies>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -26,6 +34,11 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-client</artifactId>
             <version>${cxf.version}</version>
         </dependency>
         <!-- Jackson -->
