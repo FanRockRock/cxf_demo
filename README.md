@@ -42,7 +42,7 @@
 
 ### 3. 提供 REST 身份认证
 
-参见 `rest_spring_cxf_security` 项目
+参见 `rest_spring_cxf_auth` 项目
 
 ## 其它特性 
 
