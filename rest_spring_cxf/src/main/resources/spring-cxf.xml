@@ -10,11 +10,7 @@
     <jaxrs:server address="/">
         <jaxrs:serviceBeans>
             <bean class="demo.cxf.rest_spring_cxf.HelloService"/>
-            <bean class="demo.cxf.rest_spring_cxf.UserService"/>
         </jaxrs:serviceBeans>
-        <jaxrs:providers>
-            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
-        </jaxrs:providers>
     </jaxrs:server>
 
 </beans>

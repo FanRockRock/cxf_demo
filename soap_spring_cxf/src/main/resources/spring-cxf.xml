@@ -11,4 +11,15 @@
                     implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
                     address="/HelloService"/>
 
+    <!--<jaxws:endpoint id="helloService"
+                    implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
+                    address="/HelloService">
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
+        </jaxws:inInterceptors>
+        <jaxws:outInterceptors>
+            <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+        </jaxws:outInterceptors>
+    </jaxws:endpoint>-->
+
 </beans>
