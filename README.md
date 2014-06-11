@@ -24,30 +24,30 @@
 
 ## 4 使用 Spring + CXF 开发 SOAP WS
 
-### 4.1 部署在 Spring 容器中
-
-参见 `soap_cxf_spring` 项目
-
-### 4.2 部署在 Servlet 容器中
+### 4.1 部署在 Servlet 容器中
 
 参见 `soap_spring_cxf` 项目
 
-### 4.3 部署在 Servlet 容器中且基于 Simple Frontend 实现
+### 4.2 基于 Simple Frontend 实现
 
 参见 `soap_spring_cxf_simple` 项目
 
-### 4.4 配置 CXF 拦截器
+### 4.3 配置 CXF 拦截器
 
 参见 `soap_spring_cxf_interceptor` 项目
 
-### 4.5 配置 CXF 注解
+### 4.4 配置 CXF 注解
 
 参见 `soap_spring_cxf_annotation` 项目
 
-### 4.6 配置 CXF 总线
+### 4.5 配置 CXF 总线
 
 参见 `soap_spring_cxf_bus` 项目
 
 ## 5 使用 CXF 开发 REST WS
 
 参见 `rest_cxf` 项目
+
+## 6 使用 Spring + CXF 开发 REST WS
+
+参见 `rest_spring_cxf` 项目
