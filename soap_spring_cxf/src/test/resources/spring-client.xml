@@ -7,6 +7,13 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schemas/jaxws.xsd">
 
+    <!--<bean id="factoryBean" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="demo.cxf.soap_spring_cxf.HelloService"/>
+        <property name="address" value="http://localhost:8080/HelloService"/>
+    </bean>
+
+    <bean id="helloService" factory-bean="factoryBean" factory-method="create"/>-->
+
     <jaxws:client id="helloService"
                   serviceClass="demo.cxf.soap_spring_cxf.HelloService"
                   address="http://localhost:8080/HelloService"/>
