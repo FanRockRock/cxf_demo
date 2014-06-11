@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CXF Demo</title>
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="console"></div>
+
+<script>
+    $(function() {
+        $.ajax({
+            method: 'get',
+            url: '/ws/HelloService/say',
+            data: {
+                name: 'world'
+            },
+            success: function(data) {
+                $('#console').text(data);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

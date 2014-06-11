@@ -40,6 +40,10 @@
 
 参见 `rest_spring_cxf` 项目
 
+### 3. 提供 REST 身份认证
+
+参见 `rest_spring_cxf_security` 项目
+
 ## 其它特性 
 
 ### 1. 使用 CXF 注解
