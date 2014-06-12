@@ -21,7 +21,7 @@ public class Server {
 
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(HelloService.class);
-        factory.setAddress("http://localhost:8080/HelloService");
+        factory.setAddress("http://localhost:8080/ws/HelloService");
         factory.setServiceBean(new HelloServiceImpl());
         factory.setInInterceptors(inInterceptorList); // 输入拦截器
         factory.setOutInterceptors(outInterceptorList); // 输出拦截器

@@ -7,7 +7,7 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 
-    <jaxrs:server address="/">
+    <jaxrs:server>
         <jaxrs:serviceBeans>
             <bean class="demo.cxf.rest_spring_cxf.HelloService"/>
         </jaxrs:serviceBeans>

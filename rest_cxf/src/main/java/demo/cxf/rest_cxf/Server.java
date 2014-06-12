@@ -26,7 +26,7 @@ public class Server {
 
         // 发布 REST WS
         JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
-        factory.setAddress("http://localhost:8080");
+        factory.setAddress("http://localhost:8080/ws");
         factory.setResourceClasses(resourceClassList);
         factory.setResourceProviders(resourceProviderList);
         factory.setProviders(providerList);

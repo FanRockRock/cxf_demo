@@ -6,7 +6,7 @@ import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 public class JaxWsDynamicClient {
 
     public static void main(String[] args) {
-        String wsdl = "http://localhost:8080/HelloService?wsdl";
+        String wsdl = "http://localhost:8080/ws/HelloService?wsdl";
 
         JaxWsDynamicClientFactory factory = JaxWsDynamicClientFactory.newInstance();
         Client client = factory.createClient(wsdl);

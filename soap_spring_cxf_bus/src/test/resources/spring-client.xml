@@ -9,6 +9,6 @@
 
     <jaxws:client id="helloService"
                   serviceClass="demo.cxf.soap_spring_cxf_bus.HelloService"
-                  address="http://localhost:8080/HelloService"/>
+                  address="http://localhost:8080/ws/HelloService"/>
 
 </beans>
