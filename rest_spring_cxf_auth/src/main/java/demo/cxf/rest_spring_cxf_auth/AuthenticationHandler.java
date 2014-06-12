@@ -3,6 +3,7 @@ package demo.cxf.rest_spring_cxf_auth;
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import org.apache.cxf.configuration.security.AuthorizationPolicy;
 import org.apache.cxf.jaxrs.utils.JAXRSUtils;
@@ -29,8 +30,8 @@ public class AuthenticationHandler implements ContainerRequestFilter {
         // 使用 Basic 认证
         requestContext.abortWith(
             Response
-                .status(401)
-                .header("WWW-Authenticate", "Basic realm=\"CXF Demo\"")
+                .status(Response.Status.UNAUTHORIZED)
+                .header(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=Demo")
                 .build()
         );
     }
