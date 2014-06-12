@@ -6,8 +6,8 @@ public class Server {
 
     public static void main(String[] args) {
         ServerFactoryBean factory = new ServerFactoryBean();
-        factory.setServiceClass(HelloService.class);
         factory.setAddress("http://localhost:8080/ws/HelloService");
+        factory.setServiceClass(HelloService.class);
         factory.setServiceBean(new HelloServiceImpl());
         factory.create();
         System.out.println("web services is published");
