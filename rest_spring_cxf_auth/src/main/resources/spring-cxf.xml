@@ -7,12 +7,12 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 
-    <jaxrs:server>
+    <jaxrs:server address="/rest">
         <jaxrs:serviceBeans>
-            <bean class="demo.cxf.rest_spring_cxf_auth.HelloService"/>
+            <bean class="demo.cxf.HelloService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
-            <bean class="demo.cxf.rest_spring_cxf_auth.AuthenticationHandler"/>
+            <bean class="demo.cxf.AuthenticationFilter"/>
         </jaxrs:providers>
     </jaxrs:server>
 

@@ -8,12 +8,10 @@
        http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint id="helloService"
-                    implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
-                    address="/HelloService"/>
+                    implementor="demo.cxf.HelloServiceImpl"
+                    address="/soap/HelloService"/>
 
-    <!--<jaxws:endpoint id="helloService"
-                    implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
-                    address="/HelloService">
+    <!--<jaxws:endpoint implementor="demo.cxf.HelloServiceImpl" address="/soap/HelloService">
         <jaxws:inInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
         </jaxws:inInterceptors>
