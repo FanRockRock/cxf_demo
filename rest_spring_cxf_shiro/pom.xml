@@ -16,6 +16,7 @@
         <servlet.version>3.0.1</servlet.version>
         <spring.version>4.0.5.RELEASE</spring.version>
         <cxf.version>3.0.0</cxf.version>
+        <jackson.version>1.9.13</jackson.version>
         <shiro.version>1.2.3</shiro.version>
     </properties>
 
@@ -39,17 +40,18 @@
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+        <!-- Jackson -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
         <!-- Shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <!--<dependency>
-            <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
             <version>${shiro.version}</version>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
 </project>

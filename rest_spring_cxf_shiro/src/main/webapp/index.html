@@ -7,19 +7,39 @@
 </head>
 <body>
 
+<button id="retrieve_all_products">Retrieve All Products</button>
+<button id="create_product">Create Product</button>
+
 <div id="console"></div>
 
 <script>
     $(function() {
-        $.ajax({
-            method: 'get',
-            url: '/ws/rest/HelloService/say',
-            data: {
-                name: 'world'
-            },
-            success: function(data) {
-                $('#console').text(data);
-            }
+        $('#retrieve_all_products').on('click', function() {
+            $.ajax({
+                type: 'get',
+                url: '/ws/rest/ProductService/products',
+                success: function(data) {
+                    $('#console').text(JSON.stringify(data));
+                }
+            });
+        });
+
+        $('#create_product').on('click', function() {
+            $.ajax({
+                type: 'post',
+                url: '/ws/rest/ProductService/product',
+                data: JSON.stringify({
+                    'id': new Date().getTime(),
+                    'name': 'iphone 6',
+                    'price': 6000
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                success: function(data) {
+                    $('#console').text(JSON.stringify(data));
+                }
+            });
         });
     });
 </script>

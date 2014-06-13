@@ -9,20 +9,12 @@
 
     <jaxrs:server address="/rest">
         <jaxrs:serviceBeans>
-            <bean class="demo.cxf.rest_spring_cxf_shiro.HelloServiceImpl"/>
-            <bean class="demo.cxf.rest_spring_cxf_shiro.UserServiceImpl"/>
+            <bean class="demo.cxf.rest_spring_cxf_shiro.ProductServiceImpl"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="demo.cxf.rest_spring_cxf_shiro.AuthFilter"/>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
         </jaxrs:providers>
     </jaxrs:server>
-
-    <!--<bean id="authorizationFilter" class="org.apache.cxf.jaxrs.security.SimpleAuthorizingFilter">-->
-        <!--<property name="interceptor">-->
-            <!--<bean class="org.apache.cxf.interceptor.security.SimpleAuthorizingInterceptor">-->
-            <!--<bean class="org.apache.cxf.interceptor.security.OperationInfoAuthorizingInterceptor">-->
-            <!--<bean class="org.apache.cxf.interceptor.security.SecureAnnotationsInterceptor">-->
-        <!--</property>-->
-    <!--</bean>-->
 
 </beans>
