@@ -9,7 +9,7 @@
 
     <jaxrs:server address="/rest">
         <jaxrs:serviceBeans>
-            <bean class="demo.cxf.HelloServiceImpl"/>
+            <bean class="demo.cxf.rest_spring_cxf.HelloServiceImpl"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
 

@@ -1,6 +1,5 @@
 package demo.cxf.soap_spring_cxf_simple;
 
-import demo.cxf.HelloService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

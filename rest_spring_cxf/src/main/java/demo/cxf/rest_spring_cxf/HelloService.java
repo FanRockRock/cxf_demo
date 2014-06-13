@@ -5,11 +5,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
 @Path("/HelloService")
-public class HelloService {
+public interface HelloService {
 
     @GET
     @Path("/say")
-    public String say(@QueryParam("name") String name) {
-        return "hello " + name;
-    }
+    String say(@QueryParam("name") String name);
 }

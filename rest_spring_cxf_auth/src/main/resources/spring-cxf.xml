@@ -9,10 +9,10 @@
 
     <jaxrs:server address="/rest">
         <jaxrs:serviceBeans>
-            <bean class="demo.cxf.HelloService"/>
+            <bean class="demo.cxf.rest_spring_cxf_auth.HelloServiceImpl"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
-            <bean class="demo.cxf.AuthenticationFilter"/>
+            <bean class="demo.cxf.rest_spring_cxf_auth.AuthFilter"/>
         </jaxrs:providers>
     </jaxrs:server>
 

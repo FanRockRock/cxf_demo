@@ -11,7 +11,7 @@
        http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint id="helloService"
-                    implementor="demo.cxf.HelloServiceImpl"
+                    implementor="demo.cxf.soap_spring_cxf_bus.HelloServiceImpl"
                     address="/soap/HelloService"/>
 
     <cxf:bus>

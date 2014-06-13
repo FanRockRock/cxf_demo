@@ -8,7 +8,7 @@
        http://cxf.apache.org/schemas/simple.xsd">
 
     <simple:client id="helloService"
-                   serviceClass="demo.cxf.HelloService"
+                   serviceClass="demo.cxf.soap_spring_cxf_simple.HelloService"
                    address="http://localhost:8080/ws/soap/HelloService"/>
 
 </beans>
