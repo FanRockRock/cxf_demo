@@ -29,26 +29,26 @@ public class WebClientTest {
     }
 
     @Test
-    public void userServiceRetrieveAllUsersTest() {
-        List userList = WebClient.create(baseAddress, providerList)
-            .path("/UserService")
-            .path("/users")
+    public void productServiceRetrieveAllProductsTest() {
+        List productList = WebClient.create(baseAddress, providerList)
+            .path("/ProductService")
+            .path("/products")
             .accept(MediaType.APPLICATION_JSON)
             .get(List.class);
-        for (Object user : userList) {
-            System.out.println(JsonUtil.toJSON(user));
+        for (Object product : productList) {
+            System.out.println(JsonUtil.toJSON(product));
         }
     }
 
     @Test
-    public void userServiceRetrieveAllUsersTest2() {
-        List<User> userList = WebClient.create(baseAddress, providerList)
-            .path("/UserService")
-            .path("/users")
+    public void productServiceRetrieveAllProductsTest2() {
+        List<Product> productList = WebClient.create(baseAddress, providerList)
+            .path("/ProductService")
+            .path("/products")
             .accept(MediaType.APPLICATION_JSON)
-            .get(new GenericType<List<User>>() {});
-        for (User user : userList) {
-            System.out.println(JsonUtil.toJSON(user));
+            .get(new GenericType<List<Product>>() {});
+        for (Product product : productList) {
+            System.out.println(JsonUtil.toJSON(product));
         }
     }
 }

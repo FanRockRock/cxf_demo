@@ -13,38 +13,38 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/UserService")
-public interface UserService {
+@Path("/ProductService")
+public interface ProductService {
 
     @GET
-    @Path("/users")
+    @Path("/products")
     @Produces(MediaType.APPLICATION_JSON)
-    List<User> retrieveAllUsers();
+    List<Product> retrieveAllProducts();
 
     @GET
-    @Path("/user/{id}")
+    @Path("/product/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    User retrieveUserById(@PathParam("id") long id);
+    Product retrieveProductById(@PathParam("id") long id);
 
     @POST
-    @Path("/users")
+    @Path("/products")
     @Produces(MediaType.APPLICATION_JSON)
-    List<User> retrieveUsersByName(@FormParam("name") String name);
+    List<Product> retrieveProductsByName(@FormParam("name") String name);
 
     @POST
-    @Path("/user")
+    @Path("/product")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    User createUser(User user);
+    Product createProduct(Product product);
 
     @PUT
-    @Path("/user/{id}")
+    @Path("/product/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    User updateUserById(@PathParam("id") long id, Map<String, Object> fieldMap);
+    Product updateProductById(@PathParam("id") long id, Map<String, Object> fieldMap);
 
     @DELETE
-    @Path("/user/{id}")
+    @Path("/product/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    List<User> deleteUserById(@PathParam("id") long id);
+    List<Product> deleteProductById(@PathParam("id") long id);
 }

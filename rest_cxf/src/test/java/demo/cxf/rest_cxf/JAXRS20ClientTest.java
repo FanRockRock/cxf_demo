@@ -19,22 +19,22 @@ public class JAXRS20ClientTest {
             .path("/HelloService")
             .path("/say")
             .queryParam("name", "world")
-            .request(MediaType.TEXT_PLAIN)
+            .request()
             .get(String.class);
         System.out.println(result);
     }
 
     @Test
-    public void userServiceRetrieveAllUsersTest() {
-        List userList = ClientBuilder.newClient()
+    public void productServiceRetrieveAllProductsTest() {
+        List productList = ClientBuilder.newClient()
             .register(jsonProvider)
             .target(baseAddress)
-            .path("/UserService")
-            .path("/users")
+            .path("/ProductService")
+            .path("/products")
             .request(MediaType.APPLICATION_JSON)
             .get(List.class);
-        for (Object user : userList) {
-            System.out.println(JsonUtil.toJSON(user));
+        for (Object product : productList) {
+            System.out.println(JsonUtil.toJSON(product));
         }
     }
 }

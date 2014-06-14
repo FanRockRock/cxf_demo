@@ -24,11 +24,11 @@ public class JAXRSClientTest {
     }
 
     @Test
-    public void userServiceRetrieveAllUsersTest() {
-        UserService userService = JAXRSClientFactory.create(baseAddress, UserService.class, providerList);
-        List<User> userList = userService.retrieveAllUsers();
-        for (User user : userList) {
-            System.out.println(JsonUtil.toJSON(user));
+    public void productServiceRetrieveAllProductsTest() {
+        ProductService productService = JAXRSClientFactory.create(baseAddress, ProductService.class, providerList);
+        List<Product> productList = productService.retrieveAllProducts();
+        for (Product product : productList) {
+            System.out.println(JsonUtil.toJSON(product));
         }
     }
 }

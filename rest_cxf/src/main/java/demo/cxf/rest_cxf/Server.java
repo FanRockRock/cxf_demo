@@ -13,12 +13,12 @@ public class Server {
         // 添加 ResourceClass
         List<Class<?>> resourceClassList = new ArrayList<Class<?>>();
         resourceClassList.add(HelloServiceImpl.class);
-        resourceClassList.add(UserServiceImpl.class);
+        resourceClassList.add(ProductServiceImpl.class);
 
         // 添加 ResourceProvider
         List<ResourceProvider> resourceProviderList = new ArrayList<ResourceProvider>();
         resourceProviderList.add(new SingletonResourceProvider(new HelloServiceImpl()));
-        resourceProviderList.add(new SingletonResourceProvider(new UserServiceImpl()));
+        resourceProviderList.add(new SingletonResourceProvider(new ProductServiceImpl()));
 
         // 添加 Provider
         List<Object> providerList = new ArrayList<Object>();

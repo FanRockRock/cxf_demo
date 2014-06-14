@@ -1,18 +1,18 @@
 package demo.cxf.rest_cxf;
 
-public class User {
+public class Product {
 
     private long id;
     private String name;
-    private int age;
+    private int price;
 
-    public User() {
+    public Product() {
     }
 
-    public User(long id, String name, int age) {
+    public Product(long id, String name, int price) {
         this.id = id;
         this.name = name;
-        this.age = age;
+        this.price = price;
     }
 
     public long getId() {
@@ -31,11 +31,11 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public int getPrice() {
+        return price;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
