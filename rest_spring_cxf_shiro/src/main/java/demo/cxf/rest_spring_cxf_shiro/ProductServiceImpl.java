@@ -2,6 +2,9 @@ package demo.cxf.rest_spring_cxf_shiro;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> retrieveAllProducts() {
+        Collections.sort(PRODUCT_LIST, new Comparator<Product>() {
+            @Override
+            public int compare(Product product1, Product product2) {
+                return (product2.getId() > product1.getId()) ? 1 : -1;
+            }
+        });
         return PRODUCT_LIST;
     }
 
@@ -41,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product createProduct(Product product) {
+        product.setId(new Date().getTime());
         PRODUCT_LIST.add(product);
         return product;
     }
@@ -61,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-    public List<Product> deleteProductById(long id) {
+    public void deleteProductById(long id) {
         Iterator<Product> productIterator = PRODUCT_LIST.iterator();
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
@@ -70,6 +80,5 @@ public class ProductServiceImpl implements ProductService {
                 break;
             }
         }
-        return PRODUCT_LIST;
     }
 }

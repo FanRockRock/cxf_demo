@@ -3,28 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
-    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 
-<button id="retrieve_all_products">Retrieve All Products</button>
-<button id="retrieve_product_by_id">Retrieve Product By Id</button>
-<button id="retrieve_product_by_name">Retrieve Products By Name</button>
-<button id="create_product">Create Product</button>
-<button id="update_product_by_id">Update Product By Id</button>
-<button id="delete_product_by_id">Delete Product By Id</button>
+<div class="container">
+    <div class="page-header">
+        <h1>Product</h1>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form class="form-inline" method="post" id="product_search_form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Product Name" id="keyword">
+                </div>
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-search"></i> Search
+                </button>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-success" id="product_create">
+                        <i class="fa fa-plus"></i> Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Product List</div>
+        <div class="panel-body" id="product_list"></div>
+    </div>
+</div>
 
-<div id="console"></div>
+<div class="modal" id="product_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="product_modal_submit"><i class="fa fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 <script>
     $(function() {
+        var ProductView = {
+            generateProductTableTrHtml: function(product) {
+                var html = '';
+                html += '<tr data-id="' + product.id + '" data-name="' + product.name + '">';
+                html += '  <td>' + product.id + '</td>';
+                html += '  <td>' + product.name + '</td>';
+                html += '  <td>' + product.price + '</td>';
+                html += '  <td>';
+                html += '    <button class="btn btn-xs btn-primary product_edit" title="Edit"><i class="fa fa-fw fa-edit"></i></button>';
+                html += '    <button class="btn btn-xs btn-default product_delete" title="Delete"><i class="fa fa-fw fa-trash-o"></i></button>';
+                html += '  </td>';
+                html += '</tr>';
+                return html;
+            },
+            renderProductTable: function(productList) {
+                var html = '';
+                if (productList.length) {
+                    html += '<table class="table table-hover" id="product_table">';
+                    html += '  <thead>';
+                    html += '    <tr>';
+                    html += '      <th>ID</th>';
+                    html += '      <th>Product Name</th>';
+                    html += '      <th>Price</th>';
+                    html += '      <th>Action</th>';
+                    html += '    </tr>';
+                    html += '  </thead>';
+                    html += '  </thead>';
+                    html += '  <tbody>';
+                    $.each(productList, function(i, product) {
+                        html += ProductView.generateProductTableTrHtml(product);
+                    });
+                    html += '  </tbody>';
+                    html += '</table>';
+                } else {
+                    html += '<div class="alert alert-warning">Can not find any data!</div>';
+                }
+                $('#product_list').html(html);
+            },
+            renderProductModal: function(title, product) {
+                var $modal = $('#product_modal');
+                $modal.find('.modal-title').text(title);
+                var html = '';
+                html += '<form>';
+                html += '  <input type="hidden" id="id" value="' + product.id +'">';
+                html += '  <div class="form-group">';
+                html += '    <label for="name">Product Name:</label>';
+                html += '    <input type="text" id="name" value="' + product.name + '" class="form-control" id="name">';
+                html += '  </div>';
+                html += '  <div class="form-group">';
+                html += '    <label for="price">Price:</label>';
+                html += '    <input type="text" id="price" value="' + product.price + '" class="form-control" id="price">';
+                html += '  </div>';
+                html += '</form>';
+                $modal.find('.modal-body').html(html);
+            },
+            insertProductRow: function(product) {
+                var html = ProductView.generateProductTableTrHtml(product);
+                $('#product_table').find('tbody').prepend(html);
+            },
+            updateProductRow: function(product) {
+                var html = ProductView.generateProductTableTrHtml(product);
+                $('#product_table').find('tbody').find('tr[data-id="' + product.id + '"]').replaceWith(html);
+            },
+            deleteProductRow: function(id) {
+                $('#product_table').find('tbody').find('tr[data-id="' + id + '"]').remove();
+            }
+        };
+
         var ProductService = {
             retrieveAllProducts: function() {
                 $.ajax({
                     type: 'get',
                     url: '/ws/rest/ProductService/products',
-                    success: function(data) {
-                        $('#console').text(JSON.stringify(data));
+                    success: function(productList) {
+                        ProductView.renderProductTable(productList);
                     }
                 });
             },
@@ -32,8 +137,9 @@
                 $.ajax({
                     type: 'get',
                     url: '/ws/rest/ProductService/product/' + id,
-                    success: function(data) {
-                        $('#console').text(JSON.stringify(data));
+                    success: function(product) {
+                        var title = 'Edit Product';
+                        ProductView.renderProductModal(title, product);
                     }
                 });
             },
@@ -44,8 +150,8 @@
                     data: {
                         'name': name
                     },
-                    success: function(data) {
-                        $('#console').text(JSON.stringify(data));
+                    success: function(productList) {
+                        ProductView.renderProductTable(productList);
                     }
                 });
             },
@@ -57,8 +163,8 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    success: function(data) {
-                        $('#console').text(JSON.stringify(data));
+                    success: function(product) {
+                        ProductView.insertProductRow(product);
                     }
                 });
             },
@@ -70,8 +176,8 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    success: function(data) {
-                        $('#console').text(JSON.stringify(data));
+                    success: function(product) {
+                        ProductView.updateProductRow(product);
                     }
                 });
             },
@@ -79,47 +185,67 @@
                 $.ajax({
                     type: 'delete',
                     url: '/ws/rest/ProductService/product/' + id,
-                    success: function(data) {
-                        $('#console').text(JSON.stringify(data));
+                    success: function() {
+                        ProductView.deleteProductRow(id);
                     }
                 });
             }
         };
 
-        $('#retrieve_all_products').on('click', function() {
-            ProductService.retrieveAllProducts();
+        // 显示所有产品
+        ProductService.retrieveAllProducts();
+
+        // 根据关键字查询产品
+        $('#product_search_form').on('submit', function() {
+            var keyword = $('#keyword').val().trim();
+            ProductService.retrieveProductsByName(keyword);
+            return false;
         });
 
-        $('#retrieve_product_by_id').on('click', function() {
-            var id = 1;
+        // 点击 Edit 按钮，弹出编辑产品对话框
+        $(document).on('click', '#product_table .product_edit', function() {
+            var id = $(this).closest('tr').data('id');
             ProductService.retrieveProductById(id);
+            $('#product_modal').modal('show');
+            return false;
         });
 
-        $('#retrieve_product_by_name').on('click', function() {
-            var name = 'iphone';
-            ProductService.retrieveProductsByName(name);
+        // 点击 Delete 按钮，删除产品
+        $(document).on('click', '#product_table .product_delete', function() {
+            var $tr = $(this).closest('tr');
+            var id = $tr.data('id');
+            var name = $tr.data('name');
+            if (confirm('Do you want to delete this product? [' + name + ']')) {
+                ProductService.deleteProductById(id);
+            }
+            return false;
         });
 
-        $('#create_product').on('click', function() {
+        // 点击 Create 按钮，弹出创建产品对话框
+        $('#product_create').on('click', function() {
+            var title = 'Create Product';
             var product = {
-                'id': new Date().getTime(),
-                'name': 'iphone 6',
-                'price': 6000
+                'id': 0,
+                'name': '',
+                'price': ''
             };
-            ProductService.createProduct(product);
+            ProductView.renderProductModal(title, product);
+            $('#product_modal').modal('show');
         });
 
-        $('#update_product_by_id').on('click', function() {
-            var id = 1;
+        // 点击对话框中的 Save 按钮，创建或更新产品
+        $('#product_modal_submit').on('click', function() {
+            var id = $('#id').val();
             var product = {
-                'price': 4500
+                'name': $('#name').val().trim(),
+                'price': parseInt($('#price').val().trim())
             };
-            ProductService.updateProductById(id, product);
-        });
-
-        $('#delete_product_by_id').on('click', function() {
-            var id = 1;
-            ProductService.deleteProductById(id);
+            if (id == 0) {
+                ProductService.createProduct(product);
+            } else {
+                ProductService.updateProductById(id, product);
+            }
+            $('#product_modal').modal('hide');
         });
     });
 </script>

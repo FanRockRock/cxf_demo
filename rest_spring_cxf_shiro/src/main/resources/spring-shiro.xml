@@ -16,8 +16,6 @@
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myRealm"/>
-        <!--<property name=""-->
-
     </bean>
 
     <bean id="myRealm" class="demo.cxf.rest_spring_cxf_shiro.MyRealm">

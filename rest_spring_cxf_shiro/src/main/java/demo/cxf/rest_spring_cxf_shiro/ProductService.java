@@ -51,7 +51,6 @@ public interface ProductService {
 
     @DELETE
     @Path("/product/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     @RequiresPermissions("product.d")
-    List<Product> deleteProductById(@PathParam("id") long id);
+    void deleteProductById(@PathParam("id") long id);
 }
