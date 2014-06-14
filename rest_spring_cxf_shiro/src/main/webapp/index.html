@@ -55,6 +55,14 @@
 
 <script>
     $(function() {
+        $.ajaxSetup({
+            statusCode: {
+                403: function() {
+                    alert('403 - Forbidden');
+                }
+            }
+        });
+
         var ProductView = {
             generateProductTableTrHtml: function(product) {
                 var html = '';
@@ -124,12 +132,13 @@
         };
 
         var ProductService = {
-            retrieveAllProducts: function() {
+            retrieveAllProducts: function(callback) {
                 $.ajax({
                     type: 'get',
                     url: '/ws/rest/ProductService/products',
                     success: function(productList) {
                         ProductView.renderProductTable(productList);
+                        callback();
                     }
                 });
             },
@@ -192,8 +201,14 @@
             }
         };
 
+        // 隐藏界面
+        $('body').hide();
+
         // 显示所有产品
-        ProductService.retrieveAllProducts();
+        ProductService.retrieveAllProducts(function() {
+            // 显示界面
+            $('body').fadeIn(1000);
+        });
 
         // 根据关键字查询产品
         $('#product_search_form').on('submit', function() {
