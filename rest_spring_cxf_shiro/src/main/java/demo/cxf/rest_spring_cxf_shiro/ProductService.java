@@ -37,7 +37,6 @@ public interface ProductService {
 
     @POST
     @Path("/product")
-//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RequiresPermissions("product.c")

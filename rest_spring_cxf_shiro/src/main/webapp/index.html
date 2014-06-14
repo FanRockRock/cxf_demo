@@ -8,38 +8,118 @@
 <body>
 
 <button id="retrieve_all_products">Retrieve All Products</button>
+<button id="retrieve_product_by_id">Retrieve Product By Id</button>
+<button id="retrieve_product_by_name">Retrieve Products By Name</button>
 <button id="create_product">Create Product</button>
+<button id="update_product_by_id">Update Product By Id</button>
+<button id="delete_product_by_id">Delete Product By Id</button>
 
 <div id="console"></div>
 
 <script>
     $(function() {
+        var ProductService = {
+            retrieveAllProducts: function() {
+                $.ajax({
+                    type: 'get',
+                    url: '/ws/rest/ProductService/products',
+                    success: function(data) {
+                        $('#console').text(JSON.stringify(data));
+                    }
+                });
+            },
+            retrieveProductById: function(id) {
+                $.ajax({
+                    type: 'get',
+                    url: '/ws/rest/ProductService/product/' + id,
+                    success: function(data) {
+                        $('#console').text(JSON.stringify(data));
+                    }
+                });
+            },
+            retrieveProductsByName: function(name) {
+                $.ajax({
+                    type: 'post',
+                    url: '/ws/rest/ProductService/products',
+                    data: {
+                        'name': name
+                    },
+                    success: function(data) {
+                        $('#console').text(JSON.stringify(data));
+                    }
+                });
+            },
+            createProduct: function(product) {
+                $.ajax({
+                    type: 'post',
+                    url: '/ws/rest/ProductService/product',
+                    data: JSON.stringify(product),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(data) {
+                        $('#console').text(JSON.stringify(data));
+                    }
+                });
+            },
+            updateProductById: function(id, product) {
+                $.ajax({
+                    type: 'put',
+                    url: '/ws/rest/ProductService/product/' + id,
+                    data: JSON.stringify(product),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(data) {
+                        $('#console').text(JSON.stringify(data));
+                    }
+                });
+            },
+            deleteProductById: function(id) {
+                $.ajax({
+                    type: 'delete',
+                    url: '/ws/rest/ProductService/product/' + id,
+                    success: function(data) {
+                        $('#console').text(JSON.stringify(data));
+                    }
+                });
+            }
+        };
+
         $('#retrieve_all_products').on('click', function() {
-            $.ajax({
-                type: 'get',
-                url: '/ws/rest/ProductService/products',
-                success: function(data) {
-                    $('#console').text(JSON.stringify(data));
-                }
-            });
+            ProductService.retrieveAllProducts();
+        });
+
+        $('#retrieve_product_by_id').on('click', function() {
+            var id = 1;
+            ProductService.retrieveProductById(id);
+        });
+
+        $('#retrieve_product_by_name').on('click', function() {
+            var name = 'iphone';
+            ProductService.retrieveProductsByName(name);
         });
 
         $('#create_product').on('click', function() {
-            $.ajax({
-                type: 'post',
-                url: '/ws/rest/ProductService/product',
-                data: JSON.stringify({
-                    'id': new Date().getTime(),
-                    'name': 'iphone 6',
-                    'price': 6000
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                success: function(data) {
-                    $('#console').text(JSON.stringify(data));
-                }
-            });
+            var product = {
+                'id': new Date().getTime(),
+                'name': 'iphone 6',
+                'price': 6000
+            };
+            ProductService.createProduct(product);
+        });
+
+        $('#update_product_by_id').on('click', function() {
+            var id = 1;
+            var product = {
+                'price': 4500
+            };
+            ProductService.updateProductById(id, product);
+        });
+
+        $('#delete_product_by_id').on('click', function() {
+            var id = 1;
+            ProductService.deleteProductById(id);
         });
     });
 </script>
