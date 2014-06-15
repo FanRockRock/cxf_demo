@@ -50,8 +50,58 @@
     </div>
 </div>
 
+<script type="x-tmpl-mustache" id="product_table_template">
+    {{#data.length}}
+       <table class="table table-hover" id="product_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#data}}
+                    {{> tr}}
+                {{/data}}
+            </tbody>
+        </table>
+    {{/data.length}}
+    {{^data.length}}
+        <div class="alert alert-warning">Can not find any data!</div>
+    {{/data.length}}
+</script>
+
+<script type="x-tmpl-mustache" id="product_table_tr_template">
+    <tr data-id="{{id}}" data-name="{{name}}">
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{price}}</td>
+        <td>
+            <button class="btn btn-xs btn-primary product_edit" title="Edit"><i class="fa fa-fw fa-edit"></i></button>
+            <button class="btn btn-xs btn-default product_delete" title="Delete"><i class="fa fa-fw fa-trash-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+<script type="x-tmpl-mustache" id="product_modal_form_template">
+    <form>
+        <input type="hidden" id="id" value="{{id}}">
+        <div class="form-group">
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" value="{{name}}" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="text" id="price" value="{{price}}" class="form-control" id="price">
+        </div>
+    </form>
+</script>
+
 <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/mustache.js/0.8.1/mustache.min.js"></script>
 
 <script>
     $(function() {
@@ -65,56 +115,25 @@
 
         var ProductView = {
             generateProductTableTrHtml: function(product) {
-                var html = '';
-                html += '<tr data-id="' + product.id + '" data-name="' + product.name + '">';
-                html += '  <td>' + product.id + '</td>';
-                html += '  <td>' + product.name + '</td>';
-                html += '  <td>' + product.price + '</td>';
-                html += '  <td>';
-                html += '    <button class="btn btn-xs btn-primary product_edit" title="Edit"><i class="fa fa-fw fa-edit"></i></button>';
-                html += '    <button class="btn btn-xs btn-default product_delete" title="Delete"><i class="fa fa-fw fa-trash-o"></i></button>';
-                html += '  </td>';
-                html += '</tr>';
-                return html;
+                var template = $('#product_table_tr_template').html();
+                return Mustache.render(template, product);
             },
             renderProductTable: function(productList) {
-                var html = '';
-                if (productList.length) {
-                    html += '<table class="table table-hover" id="product_table">';
-                    html += '  <thead>';
-                    html += '    <tr>';
-                    html += '      <th>ID</th>';
-                    html += '      <th>Product Name</th>';
-                    html += '      <th>Price</th>';
-                    html += '      <th>Action</th>';
-                    html += '    </tr>';
-                    html += '  </thead>';
-                    html += '  <tbody>';
-                    $.each(productList, function(i, product) {
-                        html += ProductView.generateProductTableTrHtml(product);
-                    });
-                    html += '  </tbody>';
-                    html += '</table>';
-                } else {
-                    html += '<div class="alert alert-warning">Can not find any data!</div>';
-                }
+                var data = {
+                    'data': productList
+                };
+                var tableTemplate = $('#product_table_template').html();
+                var trTemplate = $('#product_table_tr_template').html();
+                var html = Mustache.render(tableTemplate, data, {
+                    'tr': trTemplate
+                });
                 $('#product_list').html(html);
             },
             renderProductModal: function(title, product) {
                 var $modal = $('#product_modal');
                 $modal.find('.modal-title').text(title);
-                var html = '';
-                html += '<form>';
-                html += '  <input type="hidden" id="id" value="' + product.id +'">';
-                html += '  <div class="form-group">';
-                html += '    <label for="name">Product Name:</label>';
-                html += '    <input type="text" id="name" value="' + product.name + '" class="form-control" id="name">';
-                html += '  </div>';
-                html += '  <div class="form-group">';
-                html += '    <label for="price">Price:</label>';
-                html += '    <input type="text" id="price" value="' + product.price + '" class="form-control" id="price">';
-                html += '  </div>';
-                html += '</form>';
+                var template = $('#product_modal_form_template').html();
+                var html = Mustache.render(template, product);
                 $modal.find('.modal-body').html(html);
             },
             insertProductRow: function(product) {
