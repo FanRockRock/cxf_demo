@@ -105,127 +105,149 @@
 
 <script>
     $(function() {
-        $.ajaxSetup({
-            statusCode: {
-                403: function() {
-                    alert('403 - Forbidden');
+        var Util = function() {
+            // 初始化 AJAX 配置
+            $.ajaxSetup({
+                statusCode: {
+                    401: function() {
+                        alert('401 - Unauthorized');
+                    },
+                    403: function() {
+                        alert('403 - Forbidden');
+                    }
+                }
+            });
+            // 初始化模板
+            var templates = {};
+            $('script[type="x-tmpl-mustache"]').each(function() {
+                var id = $(this).attr('id');
+                var content = $(this).html();
+                Mustache.parse(content);
+                templates[id] = content;
+            });
+            // 公共成员
+            return {
+                getTemplate: function(id) {
+                    return templates[id];
                 }
             }
-        });
+        }();
 
-        var ProductView = {
-            generateProductTableTrHtml: function(product) {
-                var template = $('#product_table_tr_template').html();
-                return Mustache.render(template, product);
-            },
-            renderProductTable: function(productList) {
-                var data = {
-                    'data': productList
-                };
-                var tableTemplate = $('#product_table_template').html();
-                var trTemplate = $('#product_table_tr_template').html();
-                var html = Mustache.render(tableTemplate, data, {
-                    'tr': trTemplate
-                });
-                $('#product_list').html(html);
-            },
-            renderProductModal: function(title, product) {
-                var $modal = $('#product_modal');
-                $modal.find('.modal-title').text(title);
-                var template = $('#product_modal_form_template').html();
-                var html = Mustache.render(template, product);
-                $modal.find('.modal-body').html(html);
-            },
-            insertProductRow: function(product) {
-                var html = ProductView.generateProductTableTrHtml(product);
-                $('#product_table').find('tbody').prepend(html);
-            },
-            updateProductRow: function(product) {
-                var html = ProductView.generateProductTableTrHtml(product);
-                $('#product_table').find('tbody').find('tr[data-id="' + product.id + '"]').replaceWith(html);
-            },
-            deleteProductRow: function(id) {
-                $('#product_table').find('tbody').find('tr[data-id="' + id + '"]').remove();
+        var ProductView = function() {
+            // 私有成员
+            var generateProductTableTrHtml = function(product) {
+                return Mustache.render(Util.getTemplate('product_table_tr_template'), product);
+            };
+            // 公共成员
+            return {
+                renderProductTable: function(productList) {
+                    var data = {
+                        'data': productList
+                    };
+                    var html = Mustache.render(Util.getTemplate('product_table_template'), data, {
+                        'tr': Util.getTemplate('product_table_tr_template')
+                    });
+                    $('#product_list').html(html);
+                },
+                renderProductModal: function(title, product) {
+                    var $modal = $('#product_modal');
+                    $modal.find('.modal-title').text(title);
+                    var html = Mustache.render(Util.getTemplate('product_modal_form_template'), product);
+                    $modal.find('.modal-body').html(html);
+                },
+                insertProductRow: function(product) {
+                    var html = generateProductTableTrHtml(product);
+                    $('#product_table').find('tbody').prepend(html);
+                },
+                updateProductRow: function(product) {
+                    var html = generateProductTableTrHtml(product);
+                    $('#product_table').find('tbody').find('tr[data-id="' + product.id + '"]').replaceWith(html);
+                },
+                deleteProductRow: function(id) {
+                    $('#product_table').find('tbody').find('tr[data-id="' + id + '"]').remove();
+                }
+            };
+        }();
+
+        var ProductService = function() {
+            // 私有成员
+            var BASE = '/ws/rest/ProductService';
+            // 公共成员
+            return {
+                retrieveAllProducts: function(callback) {
+                    $.ajax({
+                        type: 'get',
+                        url: BASE + '/products',
+                        success: function(productList) {
+                            ProductView.renderProductTable(productList);
+                            callback();
+                        }
+                    });
+                },
+                retrieveProductById: function(id) {
+                    $.ajax({
+                        type: 'get',
+                        url: BASE + '/product/' + id,
+                        success: function(product) {
+                            var title = 'Edit Product';
+                            ProductView.renderProductModal(title, product);
+                        }
+                    });
+                },
+                retrieveProductsByName: function(name) {
+                    $.ajax({
+                        type: 'post',
+                        url: BASE + '/products',
+                        data: {
+                            'name': name
+                        },
+                        success: function(productList) {
+                            ProductView.renderProductTable(productList);
+                        }
+                    });
+                },
+                createProduct: function(product) {
+                    $.ajax({
+                        type: 'post',
+                        url: BASE + '/product',
+                        data: JSON.stringify(product),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        success: function(product) {
+                            ProductView.insertProductRow(product);
+                        }
+                    });
+                },
+                updateProductById: function(id, product) {
+                    $.ajax({
+                        type: 'put',
+                        url: BASE + '/product/' + id,
+                        data: JSON.stringify(product),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        success: function(product) {
+                            ProductView.updateProductRow(product);
+                        }
+                    });
+                },
+                deleteProductById: function(id) {
+                    $.ajax({
+                        type: 'delete',
+                        url: BASE + '/product/' + id,
+                        success: function() {
+                            ProductView.deleteProductRow(id);
+                        }
+                    });
+                }
             }
-        };
-
-        var ProductService = {
-            retrieveAllProducts: function(callback) {
-                $.ajax({
-                    type: 'get',
-                    url: '/ws/rest/ProductService/products',
-                    success: function(productList) {
-                        ProductView.renderProductTable(productList);
-                        callback();
-                    }
-                });
-            },
-            retrieveProductById: function(id) {
-                $.ajax({
-                    type: 'get',
-                    url: '/ws/rest/ProductService/product/' + id,
-                    success: function(product) {
-                        var title = 'Edit Product';
-                        ProductView.renderProductModal(title, product);
-                    }
-                });
-            },
-            retrieveProductsByName: function(name) {
-                $.ajax({
-                    type: 'post',
-                    url: '/ws/rest/ProductService/products',
-                    data: {
-                        'name': name
-                    },
-                    success: function(productList) {
-                        ProductView.renderProductTable(productList);
-                    }
-                });
-            },
-            createProduct: function(product) {
-                $.ajax({
-                    type: 'post',
-                    url: '/ws/rest/ProductService/product',
-                    data: JSON.stringify(product),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    success: function(product) {
-                        ProductView.insertProductRow(product);
-                    }
-                });
-            },
-            updateProductById: function(id, product) {
-                $.ajax({
-                    type: 'put',
-                    url: '/ws/rest/ProductService/product/' + id,
-                    data: JSON.stringify(product),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    success: function(product) {
-                        ProductView.updateProductRow(product);
-                    }
-                });
-            },
-            deleteProductById: function(id) {
-                $.ajax({
-                    type: 'delete',
-                    url: '/ws/rest/ProductService/product/' + id,
-                    success: function() {
-                        ProductView.deleteProductRow(id);
-                    }
-                });
-            }
-        };
-
-        // 隐藏界面
-        $('body').hide();
+        }();
 
         // 显示所有产品
+        $('body').hide(); // 隐藏界面
         ProductService.retrieveAllProducts(function() {
-            // 显示界面
-            $('body').show();
+            $('body').show(); // 显示界面
         });
 
         // 根据关键字查询产品
