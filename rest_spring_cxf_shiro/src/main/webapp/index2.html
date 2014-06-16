@@ -105,8 +105,7 @@
 
 <script>
     $(function() {
-        var Util = function() {
-            // 初始化 AJAX 配置
+        var AjaxUtil = function() {
             $.ajaxSetup({
                 statusCode: {
                     401: function() {
@@ -117,7 +116,68 @@
                     }
                 }
             });
-            // 初始化模板
+            return {
+                sendGetRequest: function(url, callback) {
+                    $.ajax({
+                        type: 'get',
+                        url: url,
+                        success: function(data) {
+                            callback(data);
+                        }
+                    });
+                },
+                sendFormData: function(url, json, callback) {
+                    $.ajax({
+                        type: 'post',
+                        url: url,
+                        data: json,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        success: function(data) {
+                            callback(data);
+                        }
+                    });
+                },
+                sendPostData: function(url, json, callback) {
+                    $.ajax({
+                        type: 'post',
+                        url: url,
+                        data: JSON.stringify(json),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        success: function(data) {
+                            callback(data);
+                        }
+                    });
+                },
+                sendPutData: function(url, json, callback) {
+                    $.ajax({
+                        type: 'put',
+                        url: url,
+                        data: JSON.stringify(json),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        success: function(data) {
+                            callback(data);
+                        }
+                    });
+                },
+                sendDeleteRequest: function(url, callback) {
+                    $.ajax({
+                        type: 'delete',
+                        url: url,
+                        success: function(data) {
+                            callback(data);
+                        }
+                    });
+                }
+            };
+        }();
+
+        var TemplateUtil = function() {
             var templates = {};
             $('script[type="x-tmpl-mustache"]').each(function() {
                 var id = $(this).attr('id');
@@ -125,34 +185,35 @@
                 Mustache.parse(content);
                 templates[id] = content;
             });
-            // 公共成员
             return {
                 getTemplate: function(id) {
                     return templates[id];
+                },
+                renderHtml: function(id, data, partials) {
+                    return Mustache.render(TemplateUtil.getTemplate(id), data, partials);
                 }
-            }
+            };
         }();
 
+        // ----------------------------------------------------------------------------------------------------
+
         var ProductView = function() {
-            // 私有成员
             var generateProductTableTrHtml = function(product) {
-                return Mustache.render(Util.getTemplate('product_table_tr_template'), product);
+                return TemplateUtil.renderHtml('product_table_tr_template', product);
             };
-            // 公共成员
             return {
                 renderProductTable: function(productList) {
-                    var data = {
+                    var html = TemplateUtil.renderHtml('product_table_template', {
                         'data': productList
-                    };
-                    var html = Mustache.render(Util.getTemplate('product_table_template'), data, {
-                        'tr': Util.getTemplate('product_table_tr_template')
+                    }, {
+                        'tr': TemplateUtil.getTemplate('product_table_tr_template')
                     });
                     $('#product_list').html(html);
                 },
                 renderProductModal: function(title, product) {
                     var $modal = $('#product_modal');
                     $modal.find('.modal-title').text(title);
-                    var html = Mustache.render(Util.getTemplate('product_modal_form_template'), product);
+                    var html = TemplateUtil.renderHtml('product_modal_form_template', product);
                     $modal.find('.modal-body').html(html);
                 },
                 insertProductRow: function(product) {
@@ -169,80 +230,49 @@
             };
         }();
 
+        // ----------------------------------------------------------------------------------------------------
+
         var ProductService = function() {
-            // 私有成员
             var BASE = '/ws/rest/ProductService';
-            // 公共成员
             return {
                 retrieveAllProducts: function(callback) {
-                    $.ajax({
-                        type: 'get',
-                        url: BASE + '/products',
-                        success: function(productList) {
-                            ProductView.renderProductTable(productList);
-                            callback();
-                        }
+                    AjaxUtil.sendGetRequest(BASE + '/products', function(productList) {
+                        ProductView.renderProductTable(productList);
+                        callback();
                     });
                 },
                 retrieveProductById: function(id) {
-                    $.ajax({
-                        type: 'get',
-                        url: BASE + '/product/' + id,
-                        success: function(product) {
-                            var title = 'Edit Product';
-                            ProductView.renderProductModal(title, product);
-                        }
+                    AjaxUtil.sendGetRequest(BASE + '/product/' + id, function(product) {
+                        var title = 'Edit Product';
+                        ProductView.renderProductModal(title, product);
                     });
                 },
                 retrieveProductsByName: function(name) {
-                    $.ajax({
-                        type: 'post',
-                        url: BASE + '/products',
-                        data: {
-                            'name': name
-                        },
-                        success: function(productList) {
-                            ProductView.renderProductTable(productList);
-                        }
+                    AjaxUtil.sendFormData(BASE + '/products', {
+                        'name': name
+                    }, function(productList) {
+                        ProductView.renderProductTable(productList);
                     });
                 },
                 createProduct: function(product) {
-                    $.ajax({
-                        type: 'post',
-                        url: BASE + '/product',
-                        data: JSON.stringify(product),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        success: function(product) {
-                            ProductView.insertProductRow(product);
-                        }
+                    AjaxUtil.sendPostData(BASE + '/product', product, function(product) {
+                        ProductView.insertProductRow(product);
                     });
                 },
                 updateProductById: function(id, product) {
-                    $.ajax({
-                        type: 'put',
-                        url: BASE + '/product/' + id,
-                        data: JSON.stringify(product),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        success: function(product) {
-                            ProductView.updateProductRow(product);
-                        }
+                    AjaxUtil.sendPutData(BASE + '/product/' + id, product, function(product) {
+                        ProductView.updateProductRow(product);
                     });
                 },
                 deleteProductById: function(id) {
-                    $.ajax({
-                        type: 'delete',
-                        url: BASE + '/product/' + id,
-                        success: function() {
-                            ProductView.deleteProductRow(id);
-                        }
+                    AjaxUtil.sendDeleteRequest(BASE + '/product/' + id, function() {
+                        ProductView.deleteProductRow(id);
                     });
                 }
             }
         }();
+
+        // ----------------------------------------------------------------------------------------------------
 
         // 显示所有产品
         $('body').hide(); // 隐藏界面

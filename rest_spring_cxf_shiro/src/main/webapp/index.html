@@ -55,7 +55,6 @@
 
 <script>
     $(function() {
-        // 初始化 AJAX 配置
         $.ajaxSetup({
             statusCode: {
                 401: function() {
@@ -68,7 +67,6 @@
         });
 
         var ProductView = function() {
-            // 私有成员
             var generateProductTableTrHtml = function(product) {
                 var html = '';
                 html += '<tr data-id="' + product.id + '" data-name="' + product.name + '">';
@@ -82,7 +80,6 @@
                 html += '</tr>';
                 return html;
             };
-            // 公共成员
             return {
                 renderProductTable: function(productList) {
                     var html = '';
@@ -139,9 +136,7 @@
         }();
 
         var ProductService = function() {
-            // 私有成员
             var BASE = '/ws/rest/ProductService';
-            // 公共成员
             return {
                 retrieveAllProducts: function(callback) {
                     $.ajax({
