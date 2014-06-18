@@ -71,14 +71,17 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-    public void deleteProductById(long id) {
+    public Product deleteProductById(long id) {
+        Product targetProduct = null;
         Iterator<Product> productIterator = PRODUCT_LIST.iterator();
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
             if (product.getId() == id) {
+                targetProduct = retrieveProductById(id);
                 productIterator.remove();
                 break;
             }
         }
+        return targetProduct;
     }
 }

@@ -53,5 +53,5 @@ public interface ProductService {
     @DELETE
     @Path("/product/{id}")
     @RequiresPermissions("product.d")
-    void deleteProductById(@PathParam("id") long id);
+    Product deleteProductById(@PathParam("id") long id);
 }
