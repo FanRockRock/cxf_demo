@@ -52,6 +52,7 @@ public interface ProductService {
 
     @DELETE
     @Path("/product/{id}")
+    @Produces(APPLICATION_JSON)
     @RequiresPermissions("product.d")
     Product deleteProductById(@PathParam("id") long id);
 }

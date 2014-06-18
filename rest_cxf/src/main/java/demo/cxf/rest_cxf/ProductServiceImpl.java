@@ -2,26 +2,35 @@ package demo.cxf.rest_cxf;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class ProductServiceImpl implements ProductService {
 
-    private static final List<Product> PRODUCT_LIST = new ArrayList<Product>();
+    private static final List<Product> productList = new ArrayList<Product>();
 
     static {
-        PRODUCT_LIST.add(new Product(1, "iphone 5s", 5000));
-        PRODUCT_LIST.add(new Product(2, "ipad mini", 2500));
+        productList.add(new Product(1, "iphone 5s", 5000));
+        productList.add(new Product(2, "ipad mini", 2500));
     }
 
     public List<Product> retrieveAllProducts() {
-        return PRODUCT_LIST;
+        Collections.sort(productList, new Comparator<Product>() {
+            @Override
+            public int compare(Product product1, Product product2) {
+                return (product2.getId() > product1.getId()) ? 1 : -1;
+            }
+        });
+        return productList;
     }
 
     public Product retrieveProductById(long id) {
         Product targetProduct = null;
-        for (Product product : PRODUCT_LIST) {
+        for (Product product : productList) {
             if (product.getId() == id) {
                 targetProduct = product;
                 break;
@@ -32,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> retrieveProductsByName(String name) {
         List<Product> targetProductList = new ArrayList<Product>();
-        for (Product product : PRODUCT_LIST) {
+        for (Product product : productList) {
             if (product.getName().contains(name)) {
                 targetProductList.add(product);
             }
@@ -41,7 +50,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product createProduct(Product product) {
-        PRODUCT_LIST.add(product);
+        product.setId(new Date().getTime());
+        productList.add(product);
         return product;
     }
 
@@ -61,15 +71,17 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-    public List<Product> deleteProductById(long id) {
-        Iterator<Product> productIterator = PRODUCT_LIST.iterator();
+    public Product deleteProductById(long id) {
+        Product targetProduct = null;
+        Iterator<Product> productIterator = productList.iterator();
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
             if (product.getId() == id) {
+                targetProduct = retrieveProductById(id);
                 productIterator.remove();
                 break;
             }
         }
-        return PRODUCT_LIST;
+        return targetProduct;
     }
 }
