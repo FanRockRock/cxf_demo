@@ -227,7 +227,7 @@
         // ----------------------------------------------------------------------------------------------------
 
         var ProductService = function() {
-            var BASE = '/ws/rest/ProductService';
+            var BASE = '/ws/rest';
             return {
                 retrieveAllProducts: function(callback) {
                     AjaxUtil.sendGetRequest(BASE + '/products', function(productList) {

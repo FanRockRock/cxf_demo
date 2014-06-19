@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import static javax.ws.rs.core.MediaType.*;
 
-@Path("/ProductService")
 public interface ProductService {
 
     @GET
