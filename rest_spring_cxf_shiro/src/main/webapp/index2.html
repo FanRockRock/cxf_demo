@@ -131,9 +131,7 @@
                         type: 'post',
                         url: url,
                         data: json,
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
+                        contentType: 'application/x-www-form-urlencoded',
                         success: function(data) {
                             callback(data);
                         }
@@ -144,9 +142,7 @@
                         type: 'post',
                         url: url,
                         data: JSON.stringify(json),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        contentType: 'application/json',
                         success: function(data) {
                             callback(data);
                         }
@@ -157,9 +153,7 @@
                         type: 'put',
                         url: url,
                         data: JSON.stringify(json),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        contentType: 'application/json',
                         success: function(data) {
                             callback(data);
                         }

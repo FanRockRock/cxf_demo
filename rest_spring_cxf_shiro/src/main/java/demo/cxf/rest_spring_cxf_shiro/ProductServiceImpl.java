@@ -19,6 +19,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> retrieveAllProducts() {
+        /*productList.clear();
+        java.util.Random random = new java.util.Random();
+        for (int i = 1; i <= 10000; i++) {
+            productList.add(new Product(i, java.util.UUID.randomUUID().toString(), random.nextInt(10000)));
+        }*/
         Collections.sort(productList, new Comparator<Product>() {
             @Override
             public int compare(Product product1, Product product2) {
