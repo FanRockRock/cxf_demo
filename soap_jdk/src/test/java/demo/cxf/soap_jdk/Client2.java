@@ -8,7 +8,7 @@ public class Client2 {
 
     public static void main(String[] args) {
         try {
-            URL wsdl = new URL("http://localhost:8080/ws/soap/HelloService?wsdl");
+            URL wsdl = new URL("http://localhost:8080/ws/soap/hello?wsdl");
             QName serviceName = new QName("http://soap_jdk.cxf.demo/", "HelloService");
             QName portName = new QName("http://soap_jdk.cxf.demo/", "HelloServicePort");
             Service service = Service.create(wsdl, serviceName);

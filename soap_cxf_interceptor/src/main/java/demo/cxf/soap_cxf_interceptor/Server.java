@@ -20,7 +20,7 @@ public class Server {
         outInterceptorList.add(new LoggingOutInterceptor());
 
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
-        factory.setAddress("http://localhost:8080/ws/soap/HelloService");
+        factory.setAddress("http://localhost:8080/ws/soap/hello");
         factory.setServiceClass(HelloService.class);
         factory.setServiceBean(new HelloServiceImpl());
         factory.setInInterceptors(inInterceptorList); // 输入拦截器

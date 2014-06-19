@@ -16,8 +16,7 @@ public class JAXRS20ClientTest {
     public void helloServiceSayTest() {
         String result = ClientBuilder.newClient()
             .target(baseAddress)
-            .path("/HelloService")
-            .path("/say")
+            .path("/hello/say")
             .queryParam("name", "world")
             .request()
             .get(String.class);
@@ -29,7 +28,6 @@ public class JAXRS20ClientTest {
         List productList = ClientBuilder.newClient()
             .register(jsonProvider)
             .target(baseAddress)
-            .path("/ProductService")
             .path("/products")
             .request(MediaType.APPLICATION_JSON)
             .get(List.class);

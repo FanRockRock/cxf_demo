@@ -13,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import static javax.ws.rs.core.MediaType.*;
 
-@Path("/ProductService")
 public interface ProductService {
 
     @GET

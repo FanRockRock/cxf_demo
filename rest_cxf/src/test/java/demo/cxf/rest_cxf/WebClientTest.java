@@ -21,8 +21,7 @@ public class WebClientTest {
     @Test
     public void helloServiceSayTest() {
         String result = WebClient.create(baseAddress)
-            .path("/HelloService")
-            .path("/say")
+            .path("/hello/say")
             .query("name", "world")
             .get(String.class);
         System.out.println(result);
@@ -31,7 +30,6 @@ public class WebClientTest {
     @Test
     public void productServiceRetrieveAllProductsTest() {
         List productList = WebClient.create(baseAddress, providerList)
-            .path("/ProductService")
             .path("/products")
             .accept(MediaType.APPLICATION_JSON)
             .get(List.class);
@@ -43,7 +41,6 @@ public class WebClientTest {
     @Test
     public void productServiceRetrieveAllProductsTest2() {
         List<Product> productList = WebClient.create(baseAddress, providerList)
-            .path("/ProductService")
             .path("/products")
             .accept(MediaType.APPLICATION_JSON)
             .get(new GenericType<List<Product>>() {});

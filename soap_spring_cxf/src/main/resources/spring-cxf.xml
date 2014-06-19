@@ -9,9 +9,9 @@
 
     <jaxws:endpoint id="helloService"
                     implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
-                    address="/soap/HelloService"/>
+                    address="/soap/hello"/>
 
-    <!--<jaxws:endpoint implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl" address="/soap/HelloService">
+    <!--<jaxws:endpoint implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl" address="/soap/hello">
         <jaxws:inInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
         </jaxws:inInterceptors>

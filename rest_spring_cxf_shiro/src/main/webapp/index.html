@@ -112,11 +112,11 @@
                     html += '  <input type="hidden" id="id" value="' + product.id +'">';
                     html += '  <div class="form-group">';
                     html += '    <label for="name">Product Name:</label>';
-                    html += '    <input type="text" id="name" value="' + product.name + '" class="form-control" id="name">';
+                    html += '    <input type="text" value="' + product.name + '" class="form-control" id="name">';
                     html += '  </div>';
                     html += '  <div class="form-group">';
                     html += '    <label for="price">Price:</label>';
-                    html += '    <input type="text" id="price" value="' + product.price + '" class="form-control" id="price">';
+                    html += '    <input type="text" value="' + product.price + '" class="form-control" id="price">';
                     html += '  </div>';
                     html += '</form>';
                     $modal.find('.modal-body').html(html);
@@ -196,7 +196,7 @@
                 deleteProductById: function(id) {
                     $.ajax({
                         type: 'delete',
-                        url: '/ws/rest/ProductService/product/' + id,
+                        url: BASE + '/product/' + id,
                         success: function() {
                             ProductView.deleteProductRow(id);
                         }
