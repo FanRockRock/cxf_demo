@@ -7,17 +7,25 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schemas/jaxws.xsd">
 
+    <!--<jaxws:server id="helloService" address="/soap/hello">
+        <jaxws:serviceBean>
+            <bean class="demo.cxf.soap_spring_cxf.HelloServiceImpl"/>
+        </jaxws:serviceBean>
+    </jaxws:server>-->
+
+    <!--<jaxws:endpoint id="helloService"
+                    implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
+                    address="/soap/hello"/>-->
+
     <jaxws:endpoint id="helloService"
                     implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
-                    address="/soap/hello"/>
-
-    <!--<jaxws:endpoint implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl" address="/soap/hello">
+                    address="/soap/hello">
         <jaxws:inInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
         </jaxws:inInterceptors>
         <jaxws:outInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
         </jaxws:outInterceptors>
-    </jaxws:endpoint>-->
+    </jaxws:endpoint>
 
 </beans>
