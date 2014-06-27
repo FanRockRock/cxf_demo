@@ -163,7 +163,7 @@
                         type: 'post',
                         url: BASE + '/products',
                         data: {
-                            'name': name
+                            name: name
                         },
                         contentType: 'application/x-www-form-urlencoded',
                         success: function(productList) {
@@ -241,9 +241,9 @@
         $('#product_create').on('click', function() {
             var title = 'Create Product';
             var product = {
-                'id': 0,
-                'name': '',
-                'price': ''
+                id: 0,
+                name: '',
+                price: ''
             };
             ProductView.renderProductModal(title, product);
             $('#product_modal').modal('show');
@@ -253,8 +253,8 @@
         $('#product_modal_submit').on('click', function() {
             var id = $('#id').val();
             var product = {
-                'name': $('#name').val().trim(),
-                'price': parseInt($('#price').val().trim())
+                name: $('#name').val().trim(),
+                price: parseInt($('#price').val().trim())
             };
             if (id == 0) {
                 ProductService.createProduct(product);
