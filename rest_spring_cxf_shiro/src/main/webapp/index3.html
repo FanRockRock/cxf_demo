@@ -52,7 +52,7 @@
 
 <script type="text/x-handlebars-template" id="product_table_template">
     {{#if data}}
-       <table class="table table-hover" id="product_table">
+        <table class="table table-hover" id="product_table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -101,176 +101,12 @@
 <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdn.bootcss.com/handlebars.js/1.3.0/handlebars.min.js"></script>
+<script src="resources/js/3/global.js"></script>
+<script src="resources/js/3/product_view.js"></script>
+<script src="resources/js/3/product_service.js"></script>
 
 <script>
     $(function() {
-        var AjaxUtil = function() {
-            $.ajaxSetup({
-                statusCode: {
-                    401: function() {
-                        alert('401 - Unauthorized');
-                    },
-                    403: function() {
-                        alert('403 - Forbidden');
-                    }
-                }
-            });
-            return {
-                sendGetRequest: function(url, callback) {
-                    $.ajax({
-                        type: 'get',
-                        url: url,
-                        success: function(data) {
-                            callback(data);
-                        }
-                    });
-                },
-                sendFormData: function(url, json, callback) {
-                    $.ajax({
-                        type: 'post',
-                        url: url,
-                        data: json,
-                        contentType: 'application/x-www-form-urlencoded',
-                        success: function(data) {
-                            callback(data);
-                        }
-                    });
-                },
-                sendPostData: function(url, json, callback) {
-                    $.ajax({
-                        type: 'post',
-                        url: url,
-                        data: JSON.stringify(json),
-                        contentType: 'application/json',
-                        success: function(data) {
-                            callback(data);
-                        }
-                    });
-                },
-                sendPutData: function(url, json, callback) {
-                    $.ajax({
-                        type: 'put',
-                        url: url,
-                        data: JSON.stringify(json),
-                        contentType: 'application/json',
-                        success: function(data) {
-                            callback(data);
-                        }
-                    });
-                },
-                sendDeleteRequest: function(url, callback) {
-                    $.ajax({
-                        type: 'delete',
-                        url: url,
-                        success: function(data) {
-                            callback(data);
-                        }
-                    });
-                }
-            };
-        }();
-
-        var TemplateUtil = function() {
-            var templates = {};
-            var partials = {};
-            $('script[type^="text/x-handlebars-template"]').each(function() {
-                var id = $(this).attr('id');
-                templates[id] = $(this).html();
-                if ($(this).attr('type').lastIndexOf('partial') != -1) {
-                    partials[id] = $(this).html();
-                }
-            });
-            return {
-                getTemplate: function(id) {
-                    return templates[id];
-                },
-                registerPartical: function(name, id) {
-                    Handlebars.registerPartial(name, partials[id]);
-                },
-                renderHtml: function(id, data) {
-                    return Handlebars.compile(templates[id])(data);
-                }
-            };
-        }();
-
-        // ----------------------------------------------------------------------------------------------------
-
-        var ProductView = function() {
-            var generateProductTableTrHtml = function(product) {
-                return TemplateUtil.renderHtml('product_table_tr_template', product);
-            };
-            return {
-                renderProductTable: function(productList) {
-                    TemplateUtil.registerPartical('tr', 'product_table_tr_template');
-                    var html = TemplateUtil.renderHtml('product_table_template', {
-                        data: productList
-                    });
-                    $('#product_list').html(html);
-                },
-                renderProductModal: function(title, product) {
-                    var $modal = $('#product_modal');
-                    $modal.find('.modal-title').text(title);
-                    var html = TemplateUtil.renderHtml('product_modal_form_template', product);
-                    $modal.find('.modal-body').html(html);
-                },
-                insertProductRow: function(product) {
-                    var html = generateProductTableTrHtml(product);
-                    $('#product_table').find('tbody').prepend(html);
-                },
-                updateProductRow: function(product) {
-                    var html = generateProductTableTrHtml(product);
-                    $('#product_table').find('tbody').find('tr[data-id="' + product.id + '"]').replaceWith(html);
-                },
-                deleteProductRow: function(id) {
-                    $('#product_table').find('tbody').find('tr[data-id="' + id + '"]').remove();
-                }
-            };
-        }();
-
-        // ----------------------------------------------------------------------------------------------------
-
-        var ProductService = function() {
-            var BASE = '/ws/rest';
-            return {
-                retrieveAllProducts: function(callback) {
-                    AjaxUtil.sendGetRequest(BASE + '/products', function(productList) {
-                        ProductView.renderProductTable(productList);
-                        callback();
-                    });
-                },
-                retrieveProductById: function(id) {
-                    AjaxUtil.sendGetRequest(BASE + '/product/' + id, function(product) {
-                        var title = 'Edit Product';
-                        ProductView.renderProductModal(title, product);
-                    });
-                },
-                retrieveProductsByName: function(name) {
-                    AjaxUtil.sendFormData(BASE + '/products', {
-                        name: name
-                    }, function(productList) {
-                        ProductView.renderProductTable(productList);
-                    });
-                },
-                createProduct: function(product) {
-                    AjaxUtil.sendPostData(BASE + '/product', product, function(product) {
-                        ProductView.insertProductRow(product);
-                    });
-                },
-                updateProductById: function(id, product) {
-                    AjaxUtil.sendPutData(BASE + '/product/' + id, product, function(product) {
-                        ProductView.updateProductRow(product);
-                    });
-                },
-                deleteProductById: function(id) {
-                    AjaxUtil.sendDeleteRequest(BASE + '/product/' + id, function() {
-                        ProductView.deleteProductRow(id);
-                    });
-                }
-            }
-        }();
-
-        // ----------------------------------------------------------------------------------------------------
-
         // 显示所有产品
         $('body').hide(); // 隐藏界面
         ProductService.retrieveAllProducts(function() {
