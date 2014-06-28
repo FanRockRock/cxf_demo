@@ -44,7 +44,11 @@
 
 参见 `rest_spring_cxf_auth` 项目
 
-## 其它特性 
+### 4. 使用 Spring + CXF + Shiro 开发 REST WS
+
+参见 `rest_spring_cxf_shiro` 项目
+
+## 其它特性
 
 ### 1. 使用 CXF 注解
 
