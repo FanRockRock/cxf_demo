@@ -38,6 +38,6 @@ public class AuthFilter implements ContainerRequestFilter {
 
     private boolean isAuthenticated(String username, String password) {
         // 模拟用户身份认证
-        return username.equals("jack") && password.equals("jack");
+        return username.equals("admin") && password.equals("123456");
     }
 }
