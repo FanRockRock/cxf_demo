@@ -4,7 +4,7 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-public class Client2 {
+public class DynamicClient {
 
     public static void main(String[] args) {
         try {

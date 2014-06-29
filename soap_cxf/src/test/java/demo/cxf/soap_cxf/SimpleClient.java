@@ -1,14 +1,13 @@
 package demo.cxf.soap_cxf;
 
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.frontend.ClientProxyFactoryBean;
 
-public class Client {
+public class SimpleClient {
 
     public static void main(String[] args) {
-        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+        ClientProxyFactoryBean factory = new ClientProxyFactoryBean();
         factory.setAddress("http://localhost:8080/ws/soap/hello");
         factory.setServiceClass(HelloService.class);
-
         HelloService helloService = factory.create(HelloService.class);
         String result = helloService.say("world");
         System.out.println(result);

@@ -6,10 +6,8 @@ import org.apache.cxf.endpoint.dynamic.DynamicClientFactory;
 public class DynamicClient {
 
     public static void main(String[] args) {
-        String wsdl = "http://localhost:8080/ws/soap/hello?wsdl";
-
         DynamicClientFactory factory = DynamicClientFactory.newInstance();
-        Client client = factory.createClient(wsdl);
+        Client client = factory.createClient("http://localhost:8080/ws/soap/hello?wsdl");
 
         try {
             Object[] results = client.invoke("say", "world");

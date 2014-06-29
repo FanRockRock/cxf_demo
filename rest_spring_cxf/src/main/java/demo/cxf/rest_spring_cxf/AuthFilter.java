@@ -1,4 +1,4 @@
-package demo.cxf.rest_spring_cxf_auth;
+package demo.cxf.rest_spring_cxf;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -38,6 +38,6 @@ public class AuthFilter implements ContainerRequestFilter {
 
     private boolean isAuthenticated(String username, String password) {
         // 模拟用户身份认证
-        return username.equals("admin") && password.equals("admin");
+        return username.equals("jack") && password.equals("jack");
     }
 }

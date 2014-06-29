@@ -10,25 +10,9 @@
 
 参见 `soap_cxf` 项目
 
-### 2. 基于 Simple Frontend 实现
-
-参见 `soap_cxf_simple` 项目
-
-### 3. 使用 API 定义 CXF 拦截器
-
-参见 `soap_cxf_interceptor` 项目
-
-### 4. 使用 Spring + CXF 开发 SOAP WS（JAX-WS Frontend）
+### 2. 使用 Spring + CXF 开发 SOAP WS（JAX-WS Frontend）
 
 参见 `soap_spring_cxf` 项目
-
-### 5. 使用 Spring + CXF 开发 SOAP WS（Simple Frontend）
-
-参见 `soap_spring_cxf_simple` 项目
-
-### 6. 配置 CXF 总线
-
-参见 `soap_spring_cxf_bus` 项目
 
 ## 使用 CXF 开发 REST WS
 
@@ -40,11 +24,7 @@
 
 参见 `rest_spring_cxf` 项目
 
-### 3. 提供 REST 身份认证
-
-参见 `rest_spring_cxf_auth` 项目
-
-### 4. 使用 Spring + CXF + Shiro 开发 REST WS
+### 3. 使用 Spring + CXF + Shiro 开发 REST WS
 
 参见 `rest_spring_cxf_shiro` 项目
 

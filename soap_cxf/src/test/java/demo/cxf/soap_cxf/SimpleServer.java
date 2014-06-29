@@ -1,11 +1,11 @@
 package demo.cxf.soap_cxf;
 
-import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
+import org.apache.cxf.frontend.ServerFactoryBean;
 
-public class Server {
+public class SimpleServer {
 
     public static void main(String[] args) {
-        JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
+        ServerFactoryBean factory = new ServerFactoryBean();
         factory.setAddress("http://localhost:8080/ws/soap/hello");
         factory.setServiceClass(HelloService.class);
         factory.setServiceBean(new HelloServiceImpl());

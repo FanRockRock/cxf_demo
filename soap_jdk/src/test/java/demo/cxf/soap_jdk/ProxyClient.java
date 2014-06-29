@@ -1,6 +1,6 @@
 package demo.cxf.soap_jdk;
 
-public class Client {
+public class ProxyClient {
 
     public static void main(String[] args) {
         HelloService_Service service = new HelloService_Service();
