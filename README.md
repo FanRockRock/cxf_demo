@@ -4,6 +4,10 @@
 
 参见 `soap_jdk` 项目
 
+## 使用 JDK 开发基于 SOAP 的 Web Service（部署到 Web 容器中）
+
+参见 `soap_jdk_web` 项目
+
 ## 使用 CXF 开发基于 SOAP 的 Web Service
 
 参见 `soap_cxf` 项目
