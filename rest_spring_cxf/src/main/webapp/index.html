@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
-    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 
-<div id="console"></div>
+<div id="hello"></div>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 
 <script>
     $(function() {
@@ -17,8 +18,9 @@
             data: {
                 name: 'world'
             },
+            dataType: 'text',
             success: function(data) {
-                $('#console').text(data);
+                $('#hello').text(data);
             }
         });
     });

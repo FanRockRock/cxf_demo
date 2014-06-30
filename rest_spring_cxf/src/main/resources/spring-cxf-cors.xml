@@ -7,12 +7,20 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 
+    <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+
+    <bean id="corsFilter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter">
+        <property name="allowOrigins" value="http://localhost"/>
+    </bean>
+
     <jaxrs:server address="/rest">
         <jaxrs:serviceBeans>
-            <bean class="demo.cxf.rest_spring_cxf.HelloServiceImpl"/>
+            <ref bean="helloServiceImpl"/>
+            <ref bean="productServiceImpl"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
-            <bean class="demo.cxf.rest_spring_cxf.AuthFilter"/>
+            <ref bean="jsonProvider"/>
+            <ref bean="corsFilter"/>
         </jaxrs:providers>
     </jaxrs:server>
 

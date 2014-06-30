@@ -8,7 +8,9 @@ import javax.ws.rs.core.Response;
 import org.apache.cxf.configuration.security.AuthorizationPolicy;
 import org.apache.cxf.jaxrs.utils.JAXRSUtils;
 import org.apache.cxf.message.Message;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthFilter implements ContainerRequestFilter {
 
     @Override
