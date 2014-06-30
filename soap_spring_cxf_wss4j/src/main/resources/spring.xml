@@ -9,6 +9,6 @@
 
     <context:component-scan base-package="demo.cxf"/>
 
-    <import resource="spring-cxf-5.xml"/>
+    <import resource="spring-cxf.xml"/>
 
 </beans>

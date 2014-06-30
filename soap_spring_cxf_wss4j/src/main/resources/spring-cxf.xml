@@ -13,20 +13,14 @@
     <bean id="wss4jInInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
         <constructor-arg>
             <map>
-                <!-- 解密 与 验签 -->
-                <entry key="action" value="Encrypt Signature"/>
-                <!-- 解密（使用自己的私钥） -->
-                <entry key="decryptionPropFile" value="server.properties"/>
+                <entry key="action" value="UsernameToken"/>
+                <entry key="passwordType" value="PasswordText"/>
                 <entry key="passwordCallbackRef" value-ref="serverPasswordCallback"/>
-                <!-- 验签（使用对方的公钥） -->
-                <entry key="signaturePropFile" value="server.properties"/>
             </map>
         </constructor-arg>
     </bean>
 
-    <jaxws:endpoint id="helloService"
-                    implementor="#helloServiceImpl"
-                    address="/soap/hello">
+    <jaxws:endpoint id="helloService" implementor="#helloServiceImpl" address="/soap/hello">
         <jaxws:inInterceptors>
             <ref bean="wss4jInInterceptor"/>
         </jaxws:inInterceptors>

@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDao {
 
     private static final Map<String, String> accountMap = new HashMap<String, String>();
@@ -26,15 +28,15 @@ public class UserDao {
         rolePermissionMap.put("guest", Arrays.asList("product.r"));
     }
 
-    public static String queryPassword(String username) {
+    public String queryPassword(String username) {
         return accountMap.get(username);
     }
 
-    public static Set<String> queryRoleNameSet(String username) {
+    public Set<String> queryRoleNameSet(String username) {
         return new HashSet<String>(userRoleMap.get(username));
     }
 
-    public static Set<String> queryPermissionNameSet(String username) {
+    public Set<String> queryPermissionNameSet(String username) {
         Set<String> permissionNameSet = new HashSet<String>();
         Set<String> roleNameSet = queryRoleNameSet(username);
         for (String roleName : roleNameSet) {

@@ -7,13 +7,15 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 
+    <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+
     <jaxrs:server address="/rest">
         <jaxrs:serviceBeans>
-            <bean class="demo.cxf.rest_spring_cxf_shiro.ProductServiceImpl"/>
+            <ref bean="productServiceImpl"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
-            <bean class="demo.cxf.rest_spring_cxf_shiro.AuthFilter"/>
-            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+            <ref bean="jsonProvider"/>
+            <ref bean="authFilter"/>
         </jaxrs:providers>
     </jaxrs:server>
 

@@ -15,8 +15,13 @@
     <bean id="wss4jOutInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
         <constructor-arg>
             <map>
+                <!-- 签名 与 加密 -->
+                <entry key="action" value="Signature Encrypt"/>
+                <!-- 签名（使用自己的私钥） -->
+                <entry key="signaturePropFile" value="client.properties"/>
+                <entry key="signatureUser" value="client"/>
+                <entry key="passwordCallbackRef" value-ref="clientPasswordCallback"/>
                 <!-- 加密（使用对方的公钥） -->
-                <entry key="action" value="Encrypt"/>
                 <entry key="encryptionPropFile" value="client.properties"/>
                 <entry key="encryptionUser" value="server"/>
             </map>

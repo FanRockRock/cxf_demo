@@ -3,10 +3,12 @@ package demo.cxf.rest_spring_cxf_shiro;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
+import org.springframework.stereotype.Component;
 
 /**
  * 用于比较密码是否相等
  */
+@Component
 public class MyMatcher extends SimpleCredentialsMatcher {
 
     @Override

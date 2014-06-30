@@ -28,7 +28,9 @@ import org.apache.shiro.authz.aop.GuestAnnotationHandler;
 import org.apache.shiro.authz.aop.PermissionAnnotationHandler;
 import org.apache.shiro.authz.aop.RoleAnnotationHandler;
 import org.apache.shiro.authz.aop.UserAnnotationHandler;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthFilter implements ContainerRequestFilter {
 
     /**

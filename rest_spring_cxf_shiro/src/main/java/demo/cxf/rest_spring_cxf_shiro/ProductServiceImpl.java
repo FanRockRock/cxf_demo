@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductServiceImpl implements ProductService {
 
     private static final List<Product> productList = new ArrayList<Product>();

@@ -16,7 +16,7 @@
         <servlet.version>3.0.1</servlet.version>
         <spring.version>4.0.5.RELEASE</spring.version>
         <cxf.version>3.0.0</cxf.version>
-        <jackson.version>1.9.13</jackson.version>
+        <jackson.version>2.4.1</jackson.version>
         <shiro.version>1.2.3</shiro.version>
     </properties>
 
@@ -42,8 +42,8 @@
         </dependency>
         <!-- Jackson -->
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
             <version>${jackson.version}</version>
         </dependency>
         <!-- Shiro -->

@@ -9,7 +9,7 @@
 
     <jaxws:server id="helloService" address="/soap/hello">
         <jaxws:serviceBean>
-            <bean class="demo.cxf.soap_spring_cxf.HelloServiceImpl"/>
+            <ref bean="helloServiceImpl"/>
         </jaxws:serviceBean>
     </jaxws:server>
 

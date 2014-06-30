@@ -7,8 +7,6 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schemas/jaxws.xsd">
 
-    <jaxws:endpoint id="helloService"
-                    implementor="demo.cxf.soap_spring_cxf.HelloServiceImpl"
-                    address="/soap/hello"/>
+    <jaxws:endpoint id="helloService" implementor="#helloServiceImpl" address="/soap/hello"/>
 
 </beans>

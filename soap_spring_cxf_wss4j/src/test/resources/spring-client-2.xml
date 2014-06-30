@@ -15,6 +15,7 @@
     <bean id="wss4jOutInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
         <constructor-arg>
             <map>
+                <!-- 用户认证（密文密码） -->
                 <entry key="action" value="UsernameToken"/>
                 <entry key="user" value="client"/>
                 <entry key="passwordType" value="PasswordDigest"/>

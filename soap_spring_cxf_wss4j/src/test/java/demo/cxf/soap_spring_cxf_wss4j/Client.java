@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Client {
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-client-5.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-client.xml");
 
         HelloService helloService = context.getBean("helloService", HelloService.class);
         String result = helloService.say("world");

@@ -5,6 +5,7 @@ var ProductService = function() {
             $.ajax({
                 type: 'get',
                 url: BASE + '/products',
+                dataType: 'json',
                 success: function(productList) {
                     ProductView.renderProductTable(productList);
                     callback();
@@ -15,6 +16,7 @@ var ProductService = function() {
             $.ajax({
                 type: 'get',
                 url: BASE + '/product/' + id,
+                dataType: 'json',
                 success: function(product) {
                     var title = 'Edit Product';
                     ProductView.renderProductModal(title, product);
@@ -28,6 +30,7 @@ var ProductService = function() {
                 data: {
                     name: name
                 },
+                dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded',
                 success: function(productList) {
                     ProductView.renderProductTable(productList);
@@ -39,6 +42,7 @@ var ProductService = function() {
                 type: 'post',
                 url: BASE + '/product',
                 data: JSON.stringify(product),
+                dataType: 'json',
                 contentType: 'application/json',
                 success: function(product) {
                     ProductView.insertProductRow(product);
@@ -50,6 +54,7 @@ var ProductService = function() {
                 type: 'put',
                 url: BASE + '/product/' + id,
                 data: JSON.stringify(product),
+                dataType: 'json',
                 contentType: 'application/json',
                 success: function(product) {
                     ProductView.updateProductRow(product);
@@ -60,6 +65,7 @@ var ProductService = function() {
             $.ajax({
                 type: 'delete',
                 url: BASE + '/product/' + id,
+                dataType: 'json',
                 success: function() {
                     ProductView.deleteProductRow(id);
                 }

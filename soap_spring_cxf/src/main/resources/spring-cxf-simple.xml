@@ -7,11 +7,9 @@
        http://cxf.apache.org/simple
        http://cxf.apache.org/schemas/simple.xsd">
 
-    <simple:server id="helloService"
-                   serviceClass="demo.cxf.soap_spring_cxf_simple.HelloService"
-                   address="/soap/hello">
+    <simple:server id="helloService" serviceClass="#helloService" address="/soap/hello">
         <simple:serviceBean>
-            <bean class="demo.cxf.soap_spring_cxf_simple.HelloServiceImpl"/>
+            <ref bean="#helloServiceImpl"/>
         </simple:serviceBean>
     </simple:server>
 

@@ -14,6 +14,7 @@ var AjaxUtil = function() {
             $.ajax({
                 type: 'get',
                 url: url,
+                dataType: 'json',
                 success: function(data) {
                     callback(data);
                 }
@@ -24,6 +25,7 @@ var AjaxUtil = function() {
                 type: 'post',
                 url: url,
                 data: json,
+                dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded',
                 success: function(data) {
                     callback(data);
@@ -35,6 +37,7 @@ var AjaxUtil = function() {
                 type: 'post',
                 url: url,
                 data: JSON.stringify(json),
+                dataType: 'json',
                 contentType: 'application/json',
                 success: function(data) {
                     callback(data);
@@ -46,6 +49,7 @@ var AjaxUtil = function() {
                 type: 'put',
                 url: url,
                 data: JSON.stringify(json),
+                dataType: 'json',
                 contentType: 'application/json',
                 success: function(data) {
                     callback(data);
@@ -56,6 +60,7 @@ var AjaxUtil = function() {
             $.ajax({
                 type: 'delete',
                 url: url,
+                dataType: 'json',
                 success: function(data) {
                     callback(data);
                 }
