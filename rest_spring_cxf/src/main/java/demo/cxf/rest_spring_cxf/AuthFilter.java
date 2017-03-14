@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthFilter implements ContainerRequestFilter {
 
-    @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         Message message = JAXRSUtils.getCurrentMessage();
         AuthorizationPolicy policy = message.get(AuthorizationPolicy.class);

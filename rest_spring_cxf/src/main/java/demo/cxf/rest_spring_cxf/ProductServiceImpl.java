@@ -22,7 +22,6 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> retrieveAllProducts() {
         Collections.sort(productList, new Comparator<Product>() {
-            @Override
             public int compare(Product product1, Product product2) {
                 return (product2.getId() > product1.getId()) ? 1 : -1;
             }
